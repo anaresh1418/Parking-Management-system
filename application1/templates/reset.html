@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-9 mt-3" style="margin-left:-25px;">
+
+        <div class="card">
+          <div class="card-header" style="background-color: lightgrey;">
+            <i class="fas fa-cog"></i>
+            <label for="" class="form-label">Change your  Password</label>
+          </div>
+            <form action="{% url 'respsw' %}" method="post">
+              {% csrf_token %}
+          <div class="card-body">
+            <div class="mb-3 mt-2">
+              <div class="container form-label">
+
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Current Password</label>
+                    <input type="password" class="form-control" id="currentpassword" aria-describedby="emailHelp" name="currentpassword">
+                  </div>
+                  <div class="mb-3">
+                    <label for="newpassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newpassword" name="newpassword">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Reenterpassword" class="form-label">Re_Enter Password</label>
+                    <input type="password" class="form-control" id="Reenterpassword" name="reenterpassword">
+                  </div>
+                  <div class="d-grid" >
+                    <button type="submit" class="btn btn-primary" style='border-radius: 15px;'>Change Password</button>
+                  </div>
+
+            </div>
+
+
+        </div>
+            </form>
+        </div>
+
+  {% endblock %}

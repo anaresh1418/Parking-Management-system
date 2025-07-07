@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+                <!--table-->
+<div class="col-9 mt-3" style="margin-left:-25px;" xmlns="http://www.w3.org/1999/html">
+
+    <div class="card">
+      <div class="card-header" style="background-color: lightgrey;">
+        <b><i class="fa-solid fa-magnifying-glass"></i> </b>&nbsp;
+        <label for="" class="form-label">Search Data | Only the records of the last 30days are available here</label>
+      </div>
+      <div class="card-body">
+        <div class="mb-3 mt-2">
+          <div class="container form-label">
+            <div class="row">
+              <div class="col-9 offset-1">
+                  <form action="{% url 'parkingsearch' %}" method="get">
+                <input type="search" class="form-control" placeholder="Search here" name="query">
+              </div>
+              <div class="col-2">
+                <button type="submit" class=""><i class="fa-solid fa-magnifying-glass"></i></button>
+                  </form>
+              </div>
+
+         </div>
+        <div class="row mt-4">
+          <div class="col">
+            <table id="myTable" class="table table-bordered form-label">
+              <thead>
+              <tr>
+                  <th scope="col">s.no</th>
+                  <th scope="col">vehicle number</th>
+                  <th scope="col">type</th>
+                  <th scope="col">Area</th>
+                  <th scope="col">Charge</th>
+                  <th scope="col">Arrival Time</th>
+                  <th scope="col">Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for x in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{x.vehicle_no}}</td>
+                <td>{{x.vehicletype}}</td>
+                <td>{{x.parkingareanumber.parkingareanumber}}</td>
+                <td>{{x.parkingharge}}</td>
+                <td>{{x.arrival_time}}</td>
+                <td>  {% if x.status %}
+                      <span class="btn btn-success rounded-pill px-3">Parked</span>
+                      {% else %}
+                      <span class="btn btn-danger rounded-pill px-3">Leaved</span>
+                      {% endif %}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+
+
+          </div>
+        </div>
+
+
+        </div>
+    </div>
+      </div>
+    </div>
+
+
+      {% endblock %}
+    

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+  <head>
+    <title>Parking Management</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+
+ <style>
+            main{
+                width: 100%;
+                height: 100vh;
+            }
+            .sidebarstyle{
+                list-style: none;
+                background-color: rgb(27, 28, 53);
+                width: 250px;
+                
+
+
+            }
+            ul>li{
+                color: white;
+            }
+
+            .hovercolor{
+                background-color:blue;
+            }
+
+
+
+        .main{
+			display: grid;
+			grid: auto auto auto/auto auto auto;
+			grid-gap: 15px;
+			padding: 5px;
+            margin: 10px;
+            margin-right: 20px;
+        }
+		.num{
+			background-color: grey;
+			text-align: center;
+			color: white;
+			padding: 30px ;
+			font-size: 30px;
+		}
+     {% block css %}
+     {% endblock %}
+
+        </style>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- font awesome link -->
+    <script src="https://kit.fontawesome.com/450694f9cb.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+  <header>
+             <nav class="navbar navbar-expand-lg navbar-light navbarcolor " style="background-color: rgb(27, 28, 53);">
+
+            &nbsp;&nbsp;&nbsp;<h4><i class="fa-solid fa-car-side" style="color: blue;"></h4></i>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" style="color:white;"><h4><span class="text-primary">S</span>PMS Panel</h4></a>
+                  </li>
+
+                </ul>
+
+                <form class="d-flex" role="search">
+                  <span>
+                  <i class="fa-solid fa-circle-user " style="color: blue;" ></i>
+                  <label style="color:white; ">Welcome {{user.username}}</label>&nbsp;
+                      <a href="{% url 'loginpage' %}">
+
+                              <input type="button"  class="btn btn-primary" value="Logout">
+                      </a>
+                    &nbsp;
+                  </span>
+                </form>
+              </div>
+            </div>
+
+          </nav>
+  </header>
+  <main>
+
+      <div class="row"  >
+
+        <div class="col-3 " style="margin-left:-32px;">
+          <div class="side-bar">
+                        <ul>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/dashboard' %}hovercolor{% endif %}"><i class="fas fa-tachometer-alt"></i><a href="{% url 'dashboard' %}" style="text-decoration:none; color:white;">&nbsp;Dashboard</a>  </li>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/categorymodule' %}hovercolor{% endif %}"><i class="fas fa-briefcase"></i><a href="{% url 'categorymodule' %}" style="text-decoration:none; color:white;">  &nbsp;Category</a></li>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/vehicleentry' %}hovercolor{% endif %} "><i class="fas fa-chart-bar"></i><a href="{% url 'vehicleentry' %}" style="text-decoration:none; color:white;">&nbsp;Vehicle Entry</a></li>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/managevehicle' %}hovercolor{% endif %} "><i class="fa-solid fa-car"></i><a href="{% url 'managevehicle' %}" style="text-decoration:none; color:white;">&nbsp;Manage Vehicles</a></li>
+                            <li  class="p-3 sidebarstyle  "><i class="fa-solid fa-bars"></i><a href="" style="text-decoration:none; color:white;">&nbsp;Reports</a></li>
+                            <li class="p-3 sidebarstyle {% if request.path == '/parkingstatus' %}hovercolor{% endif %} "> <i class="fa-solid fa-magnifying-glass"></i><a href="{% url 'parkingstatus' %} " style="text-decoration:none; color:white;">&nbsp;Search</a></li>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/reset' %}hovercolor{% endif %} "><i class="fas fa-cog"></i><a href="{% url 'reset' %}" style="text-decoration:none; color:white;"> &nbsp;Account Setting</a></li>
+                            <li  class="p-3 sidebarstyle {% if request.path == '/loginform' %}hovercolor{% endif %} "> <i class="fas fa-sign-out-alt"></i><a href="{% url 'logout' %}" style="text-decoration:none; color:white;">&nbsp;Logout</a></li>
+                        </ul>
+                    </div>
+             </div>
+          {% block content %} 
+          {% endblock %}
+
+      </div>
+
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  {% block script %}
+  {% endblock %}
+  </body>
+</html>

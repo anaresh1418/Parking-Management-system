@@ -1,0 +1,215 @@
+
+{% extends 'base.html' %}
+
+ {% block css %}
+
+        a:link {
+          text-decoration: none;
+        }
+     {% endblock %}
+
+{% block content %}
+
+
+    <div class="col-6" style="margin-left:-25px;">
+      <div class="card mt-3">
+       <form action="{% url 'addcategory' %}" method="POST">
+
+           {% csrf_token %}
+
+        <div class="card-header" style="background-color: lightgrey;">
+            <i class="fa-solid fa-list"></i>
+          Add Category
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-3">
+              <div class="col">
+                <label for="" class="form-label">
+                  Parking Area Number
+                </label>
+                <input type="text" class="form-control" name="parkingareano" required >
+              </div>
+              <div class="col">
+                <label for="" class="form-label">
+                 Vehicle Type
+                </label>
+                <input type="text" class="form-control" required name="vehicletype">
+              </div>
+              <div class="mb-3">
+
+                  <label for="" class="form-label">
+                    Vehicle Limit
+                  </label>
+                  <input type="text" class="form-control" required name="vehiclelimit">
+
+              </div>
+              <div class=" mb-3">
+
+                  <label for="" class="form-label">
+                    Parking Charge
+                  </label>
+                  <input type="text" class="form-control"  required name="parkingcharge">
+
+              </div>
+              <div class="d-grid mb-2">
+                <input class="btn btn-primary" type="submit">
+              </div>
+
+
+            </div>
+
+        </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-3" >
+      <div class="">
+        <div class="card mt-3 ">
+          <div class="card" style="width: 18rem;">
+            <div class="card-header" style="background-color: lightgrey;">
+                <i class="fa-solid fa-circle-info"></i>
+              Details
+            </div>
+          <div class="container">
+            <ul class="list-group list-group-bordered mt-3 mb-3">
+
+                {% for category in data %}
+
+
+              <li class="list-group-item d-flex justify-content-between">
+                <span>{{ category.vehicletype }}</span>
+                <span>${{category.parkingharge}}</span>
+              </li>
+
+                {% endfor %}
+
+            </ul>
+          </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  <!-- category end here -->
+  <!-- table started -->
+  <div class="row " style="margin-left:-65px; margin-top:-30px;" >
+    <div class="col-9 offset-3" >
+    <div class="card">
+      <div class="card-header" style="background-color: lightgrey;">
+          <i class="fa-solid fa-list"></i>
+        Manage Category
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="" style="mt-3">
+              Show
+          </label>
+          <input type="number" name="" id="" min="1" max="10">Entires
+          <form style="display:inline" action="{% url 'categorysearch' %}" method="GET">
+
+              <input type="search" name="query" placeholder="search" class="offset-6">
+           <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <table class="table table-bordered">
+              <tr>
+                <th>s.no</th>
+                <th>Area number</th>
+                <th>Vehicle Type</th>
+                <th>Vehicle Limit</th>
+                <th>Charge</th>
+                <th>status</th>
+                <th>Aciton</th>
+              </tr>
+                {% for x in page %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{x.parkingareanumber}}</td>
+                <td>{{x.vehicletype}}</td>
+                <td>{{x.vehiclelimit}}</td>
+                <td>{{x.parkingharge}}</td>
+                <td>
+                    {% if x.status %}
+                  <span class='badge text-bg-success rounded-pill'>Activated</span>
+                  {% else %}
+                    <span class="badge text-bg-danger rounded-pill">Deactivated</span>
+                  {% endif %}
+                </td>
+                <td>
+
+                    {% if x.status %}
+
+                    <a  href="{% url 'danger'  x.id %}">
+                        <button class="btn btn-danger" type="button">Deactivated
+                        </button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'success' x.id %}">
+                        <button class="btn btn-primary" type="button">Activated
+                        </button>
+                    </a>
+                    {% endif %}
+
+                     <a href="{% url 'confirm_delete' x.id %}">
+                            <button class="btn btn-danger">
+                              <i class="fa-solid fa-trash"></i> 
+                            </button>
+                        </a>
+                      <a href="{% url 'edit' x.id %}">
+                          <button class="btn btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i></button>
+                    </a>
+                </td>
+            </tr>
+                {% endfor %}
+            </table>
+              <div class="d-flex justify-content-between">
+
+            <label for="">
+              <p> show{{page.number }}/{{page.paginator.num_pages}} pages</p>
+            </label>
+
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                    {% if page.has_previous %}
+                    <a class="page-link" href="?page={{page.previous_page_number}}">Previous</a>
+                    {% else %}
+                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                    {% endif %}
+                </li>
+                {% for num_page in page.paginator.page_range %}<br/>
+                  {% if page.number == num_page %}
+                <li class="page-item active"><a class="page-link" href="{% url 'categorymodule' %}?page={{num_page}}">{{num_page}}</a></li>
+                  {% else %}
+                   <li class="page-item "><a class="page-link" href="{% url 'categorymodule' %}?page={{num_page}}">{{num_page}}</a></li>
+                  {% endif %}
+                  <br/>
+                  {% endfor %}
+
+                <li class="page-item">
+                    {%  if page.has_next %}<a class="page-link" href="{%  url 'categorymodule' %}?page={{page.next_page_number}}">Next</a>
+                    {% else %}
+                     <li class="page-item disabled"><span class="page-link">last</span></li>
+                {% endif %}
+                </li>
+              </ul>
+            </nav>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    </div>
+    </div>
+
+  </div>
+  <!-- table end here -->
+
+{% endblock %}
+

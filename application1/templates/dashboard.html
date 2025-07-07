@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+                <div class="col-9" style="margin-left:-45px;">
+                    <div class="main">
+                            <div class="num" style="background-color:hsl(177, 70%, 41%);">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <h5>{{ total_parked_vehicles }}</h5>
+                                            <h5>Vehicle Parked</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div  style=" background-color: ; width: 40px;">
+                                                <span><i class="fa-solid fa-square-parking" style="font-size:50px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="num" style="background-color: rgb(49, 45, 45);">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <h4>{{ total_deported_vehicles }}</h4>
+                                            <h5>Deported Vehicles</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <span><i class="fa-solid fa-car" style="font-size:50px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="num" style="background-color:rgb(215, 72, 72);">
+                                <div class="row">
+                                    <div class="col-6">
+                                             <h5>{{ total_available_categories }}</h5>
+                                            <h5>Available category</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <i class="fa-solid fa-box" style="font-size:50px;" ></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="num" style="background-color:rgb(205, 205, 2)">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <h5>$ {{ total_earnings }}</h5>
+                                            <h5>Total Earnings</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <i class="fa-solid fa-money-check-dollar" style="font-size:50px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="num" style="background-color:grey">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <h5>{{ total_records }}</h5>
+                                            <h5>Total Records</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <i class="fa-solid fa-layer-group" style="font-size:50px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="num" style="background-color:rgb(111, 111, 243)">
+                                <div class="row">
+                                    <div class="col-6">
+                                            <h5>{{ total_parking_slots }}</h5>
+                                            <h5>Total Parking slots</h5>
+                                    </div>
+                                    <div class="col-6">
+                                        <div>
+                                            <i class="fa-solid fa-check-double" style="font-size:50px;"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+	                 </div>
+                </div>
+        {% endblock %}
+
+    
+    </body>
+    </html>

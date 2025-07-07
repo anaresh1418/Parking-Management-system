@@ -1,0 +1,108 @@
+
+{% extends 'base.html' %}
+
+
+
+
+
+{% block content %}
+
+
+<div class="col-9 mt-3 " style="margin-left:-25px;">
+    <div class="card">
+      <div class="card-header" style="background-color: lightgrey;">
+        <i class="fa-solid fa-list"></i>
+      <label for="" class="form-label">Manage Vehicle | Only the record of the last 30 days are available here</label>
+      </div>
+<div class="card-body">
+        <div class="mb-3">
+          <label for="" style="mt-3">
+              Show
+          </label>
+          <input type="number" name="" id="" min="1" max="10">Entires
+          <form style="display:inline" action="{% url 'managevehiclesearch' %}" method="get">
+
+              <input type="search" name="query" placeholder="Search here " class="offset-6">
+           <button type="submit"><i class="fa-solid fa-magnifying-glass"></i>  </button>
+        </form>
+         </div>
+        <div class="row mt-4">
+          <div class="col">
+            <table id="myTable" class="table table-bordered">
+              <thead>
+              <tr>
+                <th>s.no</th>
+                <th>Vehicle number</th>
+                <th>Type</th>
+                <th>Area No</th>
+                <th>Charge</th>
+                <th>Arrival Time</th>
+                <th>status</th>
+                <th>Aciton</th>
+              </tr>
+            </thead>
+              <tbody>
+                {% for x in page_obj %}
+              <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{x.vehicle_no}}</td>
+                  <td>{{x.vehicletype}}</td>
+                  <td>{{x.parkingareanumber.parkingareanumber}}</td>
+                  <td><span>$</span>{{x.parkingharge}}</td>
+                  <td>{{x.arrival_time}}</td>
+                  <td>
+                      {% if x.status %}
+                      Parked
+                      {% else %}
+                      Leaved
+                      {% endif %}
+                      </td>
+                  <td>
+                      <a href="{% url 'status_manage_vehicle' x.id %}" class="btn btn-primary">Done</a>
+                  </td>
+              </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          <div class="d-flex justify-content-between">
+            <label for="">
+              <p> show{{page_obj.number }}/{{page_obj.paginator.num_pages}} pages</p>
+            </label>
+               <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% if page_obj.has_previous %}
+
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                {% else %}
+                  <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                  {% if num == page_obj.number %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+
+                {% else %}
+                  <li class="page-item disabled"><span class="page-link">Next</span></li>
+
+                {% endif %}
+              </ul>
+            </nav>
+
+
+            </div>
+
+          </div>
+        </div>
+
+        </div>
+
+ {% endblock %}
+
+ 
